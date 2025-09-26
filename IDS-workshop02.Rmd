@@ -85,3 +85,54 @@ visitors %>%
   
 ```
 
+```{r}
+visitors %>% 
+  summarise(
+    mean_2022 = mean(n_2022),
+    med_2022 = median(n_2022)
+  )
+```
+
+```{r}
+visitors %>% 
+  summarise(
+    mean_2021 = mean(n_2021, na.rm = TRUE),
+    med_2021 = median(n_2021, na.rm = TRUE)
+  )
+```
+
+```{r}
+help("mean")
+help("median")
+```
+
+```{r}
+visitors %>% 
+  group_by(setting) %>%
+  summarise(
+    mean_2022 = mean(n_2022),
+    med_2022 = median(n_2022)
+  )
+```
+
+```{r}
+visitors_with_nations <- visitors %>%
+  mutate(
+    nation = case_when(
+      region == "Northern Ireland" ~ "Northern Ireland",
+      region == "Scotland" ~ "Scotland",
+      region == "Wales" ~ "Wales",
+      TRUE ~ "England"
+    )
+  )
+
+```
+
+```{r}
+visitors_with_nations %>% 
+  group_by(nation) %>%
+  summarise(
+    IQR_2022 = IQR(n_2022)
+  )
+```
+
